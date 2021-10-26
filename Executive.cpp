@@ -1,8 +1,13 @@
 #include "Executive.h"
 Executive::Executive()
 {
-  //initialize the hand here??
+  player = new Blackjack();
+  dealer = new Blackjack();
   int currentPlayer = 0; //The player0 is user and player1 is Dealer(ai)
+  for (i = 0; i < 2; i++) {
+    player.hit();
+    dealer.hit();
+  }
   run();
 }
 void Executive::run()

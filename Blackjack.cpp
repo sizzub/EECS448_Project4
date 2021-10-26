@@ -7,7 +7,10 @@
 using namespace std;
 
 Blackjack::Blackjack() {
-    //initialize hand and handSize
+    for (int i = 0; i <= 21; i++) {
+        hand[i] = -1;
+    }
+    handSize = 0;
 }
 
 int Blackjack::getHandSize() {
