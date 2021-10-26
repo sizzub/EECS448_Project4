@@ -8,9 +8,13 @@ class Executive {
         Blackjack* dealer;
         Blackjack* player;
         std::string winner;
+        int currentPlayer;
 
 
     public:
+        Executive();
+        void run();
+        void turnChange();
         void winningCondition(Blackjack* dealer, Blackjack* player);
 };
 
