@@ -2,6 +2,9 @@
 #define EXECUTIVE_H
 #include "Blackjack.h"
 #include <string>
+#include <iostream>
+#include <stdio.h>
+#include <cstdlib>
 
 class Executive {
     private:
