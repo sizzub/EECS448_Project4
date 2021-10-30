@@ -6,7 +6,7 @@ using namespace std;
 class Blackjack {
   
 private: 
-	int[22] hand;
+	int hand[22];
 	int handSize;
 	
 public: 
