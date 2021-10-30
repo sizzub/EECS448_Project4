@@ -28,10 +28,10 @@ int Blackjack::getCard(int index) {
 
 int Blackjack::handValue() {//returns the optimal hand value for the player (counts aces as 1 if they would cause a bust, 11 otherwise)
     int val = 0;
+    int numAces = 0;
     //determine value of hand not including aces:
     for (int i = 0; i < handSize; i++) {
         int cardVal = cardValue(hand[i]);
-        int numAces = 0;
         
         if (cardVal != 11) {
             val += cardVal;
@@ -111,7 +111,7 @@ string Blackjack::parseCard(int card) {
 }
 
 int Blackjack::cardValue(int card) {
-    cardNum = card % 13;
+    int cardNum = card % 13;
     if (card < 0) {
         return(0);
     }
