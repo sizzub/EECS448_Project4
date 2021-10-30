@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
-#include <Executive.h>
-#include <Blackjack.h>
+#include "Executive.h"
+#include "Blackjack.h"
 
 int main()
 {
