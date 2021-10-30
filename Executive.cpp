@@ -3,10 +3,10 @@ Executive::Executive()
 {
   player = new Blackjack();
   dealer = new Blackjack();
-  int currentPlayer = 0; //The player0 is user and player1 is Dealer(ai)
-  for (i = 0; i < 2; i++) {
-    player.hit();
-    dealer.hit();
+  currentPlayer = 0; //The player0 is user and player1 is Dealer(ai)
+  for (int i = 0; i < 2; i++) {
+    player->hit();
+    dealer->hit();
   }
   run();
 }
@@ -14,22 +14,22 @@ void Executive::run()
 {
   int choice;
   bool continueGame = true;
-  
+
   //Turn phase
   do{
     if(currentPlayer == 0) //user turn
     {
       do {
-        cout << "It's your turn."
+        std::cout << "It's your turn.";
         //Some display menu function with choices hit and stand
-        cin >> choice;
+        std::cin >> choice;
         if(choice == 1)//hit
         {
-          player.hit();
-          if(player.isBust()) {
+          player->hit();
+          if(player->isBust()) {
             //player lost
             //dealer gets win function
-            choice == 4;
+            choice = 4;
           }
           //Display hand function
         }
@@ -50,19 +50,19 @@ void Executive::run()
     if(currentPlayer == 1) //ai turn
     {
       do {
-        if(dealer.handValue() > 17)
+        if(dealer->handValue() > 17)
         {
-          cout << "Dealer stays\n";
+          std::cout << "Dealer stays\n";
           choice = 4;
         }
-        if(dealer.handValue() <= 16)
+        if(dealer->handValue() <= 16)
         {
-          cout << "Dealer hits\n";
-          dealer.hit();
-          if(dealer.isBust()) {
+          std::cout << "Dealer hits\n";
+          dealer->hit();
+          if(dealer->isBust()) {
             //dealer lost
             //player gets win fucntion
-            choice == 4;
+            choice = 4;
           }
           //displays dealer's hand??
         }
@@ -74,26 +74,26 @@ void Executive::run()
     winningCondition(dealer, player);
     while(1)
     {
-      cout << "==================\n\nDo you want to continue playing?\n\n==================";
-      cin >> continueGame;
+      std::cout << "==================\n\nDo you want to continue playing?\n\n==================";
+      std::cin >> continueGame;
       if(continueGame == true || continueGame ==false) {
-        cout << "Thanks for playing!\n";
+        std::cout << "Thanks for playing!\n";
         break;
       }
       else
       {
-        cout << "Invalid input. Try again.\n";
+        std::cout << "Invalid input. Try again.\n";
       }
     }
 
-  } while(continueGame == true)
+  } while(continueGame == true);
 
 
 }
 
 void Executive::turnChange()
 {
-  if(currentPLayer == 0) {
+  if(currentPlayer == 0) {
     currentPlayer = 1;
   }
   else{
@@ -116,6 +116,6 @@ void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
     else
     {
         //HOUSE WINS
-        winner = "Dealer"
+        winner = "Dealer";
     }
 }
