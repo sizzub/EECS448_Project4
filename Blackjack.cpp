@@ -7,6 +7,7 @@
 using namespace std;
 
 Blackjack::Blackjack() {
+    srand(time(NULL));
     for (int i = 0; i <= 21; i++) {
         hand[i] = -1;
     }
@@ -66,7 +67,7 @@ void Blackjack::hit() {
 }
 
 int Blackjack::randomCard() {
-    srand((unsigned)time(NULL));
+ 
     return ((rand() % 52));
 }
 
