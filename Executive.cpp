@@ -1,6 +1,12 @@
+#include <iostream>
+#include <cstdlib>
+#include <string>
+#include <unistd.h>
 #include "Executive.h"
+#include "Blackjack.h"
 Executive::Executive()
 {
+  cout<<"hello";
   player = new Blackjack();
   dealer = new Blackjack();
   currentPlayer = 0; //The player0 is user and player1 is Dealer(ai)
@@ -10,86 +16,147 @@ Executive::Executive()
   }
   run();
 }
+
 void Executive::run()
 {
+  //setup
+  wins=0;
+  ties=0;
+  losses=0;
   int choice;
   bool continueGame = true;
 
+  display();
+  srand(time(NULL));
+
   //Turn phase
   do{
+  player = new Blackjack();
+  dealer = new Blackjack();
+  currentPlayer = 0; //The player0 is user and player1 is Dealer(ai)
+  for (int i = 0; i < 2; i++) {
+    player->hit();
+    dealer->hit();
+  }
+  
+  
     if(currentPlayer == 0) //user turn
     {
       do {
-        std::cout << "It's your turn.";
-        //Some display menu function with choices hit and stand
+	display();
         std::cin >> choice;
         if(choice == 1)//hit
         {
           player->hit();
           if(player->isBust()) {
-            //player lost
-            //dealer gets win function
-            choice = 4;
+            displaybust();
+	    cin>>choice;
+            choice = 2;
           }
-          //Display hand function
         }
-        if(choice == 2)//stand
-        {
-          choice = 4;
-        }
-        if(choice == 3)//Show hands (Both dealer and players)
-        {
-          //Display hands function
-        }
-        else {
-          cout << "Invalid input\n";
-        }
-      } while(choice !=4);
+      } while(choice !=2);
       turnChange();
     }
+
+
     if(currentPlayer == 1) //ai turn
     {
+      
       do {
-        if(dealer->handValue() > 17)
+	displayend();
+	usleep(500000);
+        if(dealer->handValue() >= 17)
         {
-          std::cout << "Dealer stays\n";
+	  cout<<"stay";
+	  usleep(500000);
+	  
           choice = 4;
         }
         if(dealer->handValue() <= 16)
         {
-          std::cout << "Dealer hits\n";
           dealer->hit();
+	  cout<<"hit";
+	  usleep(500000);
           if(dealer->isBust()) {
             //dealer lost
             //player gets win fucntion
             choice = 4;
           }
-          //displays dealer's hand??
         }
       } while(choice != 4);
       turnChange();
     }
 
-    //the end of game//////////////////////////////
-    winningCondition(dealer, player);
-    while(1)
-    {
-      std::cout << "==================\n\nDo you want to continue playing?\n\n==================";
-      std::cin >> continueGame;
-      if(continueGame == true || continueGame ==false) {
-        std::cout << "Thanks for playing!\n";
-        break;
-      }
-      else
-      {
-        std::cout << "Invalid input. Try again.\n";
-      }
-    }
 
-  } while(continueGame == true);
+    //the end of game//////////////////////////////
+    usleep(2000000);
+    winningCondition(dealer, player);
+    usleep(2000000);
+
+  } while(contGame());
 
 
 }
+
+void Executive::display()
+{
+  cout<<"\x1B[2J\x1B[H";
+  cout<<"display\n";
+  cout<<"Wins: "<<wins<<"\nTies: "<<ties<<"\nLosses: "<<losses<<"\n\nDealer hand: ";
+
+  cout<<"\n"<<dealer->parseCard(dealer->getCard(0))<<" ";
+  
+  cout<<"\n\nPlayer hand: ";
+  for(int i=0; i<21; i++){
+    if(player->getCard(i)>=0){
+      cout<<"\n"<<player->parseCard(player->getCard(i));
+
+    }
+  }
+  cout<<"\n\nhit(1) or stand(2): ";
+  
+}
+
+void Executive::displayend()
+{
+  cout<<"\x1B[2J\x1B[H";
+  cout<<"displayend\n";
+  cout<<"Wins: "<<wins<<"\nTies: "<<ties<<"\nLosses: "<<losses<<"\n\nDealer hand: ";
+
+  for(int i=0; i<21; i++){
+    if(dealer->getCard(i)>=0){
+      cout<<"\n"<<dealer->parseCard(dealer->getCard(i))<<" ";
+    }
+  }
+  cout<<"\n\nPlayer hand: ";
+  for(int i=0; i<21; i++){
+    if(player->getCard(i)>=0){
+      cout<<"\n"<<player->parseCard(player->getCard(i));
+
+    }
+  }
+  cout<<"\n\nhit(1) or stand(2): ";
+  
+}
+
+void Executive::displaybust()
+{
+  cout<<"\x1B[2J\x1B[H";
+  cout<<"displaybust\n";
+  cout<<"Wins: "<<wins<<"\nTies: "<<ties<<"\nLosses: "<<losses;
+
+
+  cout<<"\n\nPlayer hand: ";
+  for(int i=0; i<21; i++){
+    if(player->getCard(i)>=0){
+      cout<<"\n"<<player->parseCard(player->getCard(i));
+
+    }
+  }
+  cout<<"\n\nPlayer Bust(1): ";
+  
+}
+
 
 void Executive::turnChange()
 {
@@ -100,22 +167,49 @@ void Executive::turnChange()
     currentPlayer = 0;
   }
 }
+
+bool Executive::contGame()
+{
+  int choice;
+  cout<<"contGame\n";
+  cout<<"\x1B[2J\x1B[H";
+  cout<<"Wins: "<<wins<<"\nTies: "<<ties<<"\nLosses: "<<losses;
+
+  cout<<"\n\n\nDo you want to play annother round?\nyes(1) no(2): ";
+  cin>>choice;
+  if(choice == 1){
+    return 1;
+  }
+  else{
+    return 0;
+  }
+}
+
+
+
 void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
 {
+  
     //summing players hand
-    if(player->handValue() > dealer->handValue())
+  if( ( (player->handValue() > dealer->handValue()) || (dealer->isBust()) ) && (!(player->isBust())) )
     {
         //playyer wins
-        winner = "Player";
+      winner="Player wins";
+      wins++;
     }
-    else if(player->handValue() == dealer->handValue())
+  else if( ((player->handValue() == dealer->handValue())) || ( (dealer->isBust()) && (player->isBust())  ) )
     {
         //push
-        winner = "Push";
+      winner="Tie";
+      ties++;
     }
     else
     {
         //HOUSE WINS
-        winner = "Dealer";
+      winner="Dealer wins";
+      losses++;
     }
+  cout<<"\x1B[2J\x1B[H";
+  cout<<"WinningCondition\n";
+  cout<<"Wins: "<<wins<<"\nTies: "<<ties<<"\nLosses: "<<losses<<"\n\n"<<winner<<"\n\n";
 }
