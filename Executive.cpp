@@ -92,8 +92,10 @@ void Executive::run()
     usleep(2000000);
     winningCondition(dealer, player);
     usleep(2000000);
+	  
+	continueGame=contGame();
 
-  } while(contGame());
+  } while(continueGame);
 
 
 }
@@ -101,7 +103,7 @@ void Executive::run()
 void Executive::display()
 {
   cout<<"\x1B[2J\x1B[H";
-  cout<<"display\n";
+  //cout<<"display\n";
   cout<<"Wins: "<<wins<<"\nTies: "<<ties<<"\nLosses: "<<losses<<"\n\nDealer hand: ";
 
   cout<<"\n"<<dealer->parseCard(dealer->getCard(0))<<" ";
@@ -120,7 +122,7 @@ void Executive::display()
 void Executive::displayend()
 {
   cout<<"\x1B[2J\x1B[H";
-  cout<<"displayend\n";
+  //cout<<"displayend\n";
   cout<<"Wins: "<<wins<<"\nTies: "<<ties<<"\nLosses: "<<losses<<"\n\nDealer hand: ";
 
   for(int i=0; i<21; i++){
@@ -142,7 +144,7 @@ void Executive::displayend()
 void Executive::displaybust()
 {
   cout<<"\x1B[2J\x1B[H";
-  cout<<"displaybust\n";
+  //cout<<"displaybust\n";
   cout<<"Wins: "<<wins<<"\nTies: "<<ties<<"\nLosses: "<<losses;
 
 
@@ -171,7 +173,7 @@ void Executive::turnChange()
 bool Executive::contGame()
 {
   int choice;
-  cout<<"contGame\n";
+  //cout<<"contGame\n";
   cout<<"\x1B[2J\x1B[H";
   cout<<"Wins: "<<wins<<"\nTies: "<<ties<<"\nLosses: "<<losses;
 
@@ -210,6 +212,6 @@ void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
       losses++;
     }
   cout<<"\x1B[2J\x1B[H";
-  cout<<"WinningCondition\n";
+  //cout<<"WinningCondition\n";
   cout<<"Wins: "<<wins<<"\nTies: "<<ties<<"\nLosses: "<<losses<<"\n\n"<<winner<<"\n\n";
 }
