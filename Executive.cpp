@@ -24,13 +24,14 @@ void Executive::run()
   ties=0;
   losses=0;
   int choice;
-  bool continueGame = true;
+  bool continueGame;
 
   display();
   srand(time(NULL));
 
   //Turn phase
   do{
+  continueGame = false;
   player = new Blackjack();
   dealer = new Blackjack();
   currentPlayer = 0; //The player0 is user and player1 is Dealer(ai)
@@ -95,7 +96,7 @@ void Executive::run()
 	  
 	continueGame=contGame();
 
-  } while(continueGame);
+  } while(continueGame == 1);
 
 
 }
