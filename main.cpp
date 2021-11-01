@@ -7,7 +7,6 @@ int main()
 {
   cout<<"hello2";
   Executive exec;
-  exec.run();
 
   return(0);
 }
