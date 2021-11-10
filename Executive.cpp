@@ -9,6 +9,7 @@ Executive::Executive()
   cout<<"hello";
   player = new Blackjack();
   dealer = new Blackjack();
+  resetDeck();
   currentPlayer = 0; //The player0 is user and player1 is Dealer(ai)
   for (int i = 0; i < 2; i++) {
     player->hit();
@@ -34,6 +35,7 @@ void Executive::run()
   continueGame = false;
   player = new Blackjack();
   dealer = new Blackjack();
+  resetDeck();
   currentPlayer = 0; //The player0 is user and player1 is Dealer(ai)
   for (int i = 0; i < 2; i++) {
     player->hit();
@@ -215,4 +217,12 @@ void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
   cout<<"\x1B[2J\x1B[H";
   //cout<<"WinningCondition\n";
   cout<<"Wins: "<<wins<<"\nTies: "<<ties<<"\nLosses: "<<losses<<"\n\n"<<winner<<"\n\n";
+}
+
+void Executive::resetDeck() {
+  deck.clear();
+  for (int i = 0; i < 312; i++) {
+    deck.push_back(i % 52);
+  }
+  random_shuffle(deck.begin(), deck.end());
 }
