@@ -60,7 +60,7 @@ bool Blackjack::isBust() {
 }
 
 void Blackjack::hit(vector<int> &deck) {
-    if (handSize < 22) {
+    if (handSize < 22 && !deck.empty()) {
         hand[handSize] = deck.back();
         deck.pop_back();
         handSize++;
