@@ -47,11 +47,12 @@ public:
 	
 	/*
 	* @pre hand initialized
-	* @post adds a random card to hand array and increments handSize
-	* @param none
+	* @post if hand size is less than 22 it adds last card from deck to hand, 
+		removes that card from deck, and increments hand sizes
+	* @param the deck to draw from
 	* @return none
 	*/
-	void hit();
+	void hit(vector<int> &deck);
 	
 	/*
 	* @pre none
