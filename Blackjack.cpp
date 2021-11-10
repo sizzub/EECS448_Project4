@@ -59,10 +59,11 @@ bool Blackjack::isBust() {
     return(handValue() > 21);
 }
 
-void Blackjack::hit() {
+void Blackjack::hit(vector<int> &deck) {
     if (handSize < 22) {
-    hand[handSize] = randomCard();
-    handSize++;
+        hand[handSize] = deck.back();
+        deck.pop_back();
+        handSize++;
     }
 }
 
