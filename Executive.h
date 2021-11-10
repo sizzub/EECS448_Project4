@@ -75,6 +75,14 @@ class Executive {
 	* @return 1 if the player wants to continue, 0 if the player wants to quit
 	*/	
 	bool contGame();
+	
+	/*
+	* @pre none
+	* @post clears deck, fills with 312 cards (=6 decks of 52), shuffles the deck
+	* @param none
+	* @return none
+	*/
+	void resetDeck();
 };
 
 #endif
