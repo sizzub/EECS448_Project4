@@ -12,8 +12,8 @@ Executive::Executive()
   resetDeck();
   currentPlayer = 0; //The player0 is user and player1 is Dealer(ai)
   for (int i = 0; i < 2; i++) {
-    player->hit();
-    dealer->hit();
+    player->hit(deck);
+    dealer->hit(deck);
   }
   run();
 }
@@ -38,8 +38,8 @@ void Executive::run()
   resetDeck();
   currentPlayer = 0; //The player0 is user and player1 is Dealer(ai)
   for (int i = 0; i < 2; i++) {
-    player->hit();
-    dealer->hit();
+    player->hit(deck);
+    dealer->hit(deck);
   }
   
   
@@ -50,7 +50,7 @@ void Executive::run()
         std::cin >> choice;
         if(choice == 1)//hit
         {
-          player->hit();
+          player->hit(deck);
           if(player->isBust()) {
             displaybust();
 	    cin>>choice;
@@ -77,7 +77,7 @@ void Executive::run()
         }
         if(dealer->handValue() <= 16)
         {
-          dealer->hit();
+          dealer->hit(deck);
 	  cout<<"hit";
 	  usleep(500000);
           if(dealer->isBust()) {
