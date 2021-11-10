@@ -1,6 +1,7 @@
 #ifndef EXECUTIVE_H
 #define EXECUTIVE_H
 #include <string>
+#include <vector>
 #include <iostream>
 #include <stdio.h>
 #include <cstdlib>
@@ -10,6 +11,7 @@ class Executive {
     private:
         Blackjack* dealer;
         Blackjack* player;
+	vector<int> deck;
         std::string winner;
         int currentPlayer;
 	int wins;
