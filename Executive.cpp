@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include <vector>
+#include <algorithm>
 #include <unistd.h>
 #include "Executive.h"
 #include "Blackjack.h"
