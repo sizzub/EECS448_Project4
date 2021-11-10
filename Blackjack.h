@@ -47,7 +47,7 @@ public:
 	
 	/*
 	* @pre hand initialized
-	* @post if hand size is less than 22 it adds last card from deck to hand, 
+	* @post if hand size is less than 22 and the deck has cards in it it adds last card from deck to hand, 
 		removes that card from deck, and increments hand sizes
 	* @param the deck to draw from
 	* @return none
