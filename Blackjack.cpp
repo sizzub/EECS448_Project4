@@ -1,5 +1,6 @@
 #include "Blackjack.h"
 #include <string>
+#include <vector>
 #include <cstdlib>
 #include <stdio.h>
 #include <stdlib.h>
