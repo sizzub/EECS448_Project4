@@ -9,6 +9,7 @@ class Blackjack {
 private: 
 	int hand[22];
 	int handSize;
+	int bank;
 	
 public: 
 	
@@ -78,6 +79,22 @@ public:
 	* @return int point value of the card (aces counted as 11)
 	*/
 	int cardValue(int card);
+
+	/*
+	* @pre none
+	* @post none
+	* @param int value, the value of either how much the user lost or won
+	* @return none
+	*/
+	void adjustBank(int value);
+
+	/*
+	* @pre none
+	* @post none
+	* @param int value, the amount the user is betting
+	* @return returns true if the amount the user is betting is correct, false if not
+	*/
+	bool checkBet(int value);
 	
 };
 #endif

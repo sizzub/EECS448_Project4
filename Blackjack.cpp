@@ -13,6 +13,7 @@ Blackjack::Blackjack() {
         hand[i] = -1;
     }
     handSize = 0;
+    bank = 150;
 }
 
 int Blackjack::getHandSize() {
@@ -25,6 +26,32 @@ int Blackjack::getCard(int index) {
     }
     else {
         return hand[index];
+    }
+}
+
+void Blackjack::adjustBank(int value)
+{
+    bank = bank+value;
+    return;
+}
+
+bool Blackjack::checkBet(int value)
+{
+    if(value < 5)
+    {
+        return false;
+    }
+    else if(value > 50)
+    {
+        return false;
+    }
+    else if(value > bank)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
     }
 }
 
