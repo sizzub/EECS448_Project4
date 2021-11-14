@@ -49,10 +49,16 @@ void Executive::run()
     {
       do {
 	//display();
-	changeLScreen(1);
-	clearScreen();
-	allUpdate();
-	screenRefresh();
+	
+	    changeLScreen(7);
+	    clearScreen();
+	    allUpdate();
+	    screenRefresh();
+	    cin>>bet;
+	    
+	    changeLScreen(1);
+	    allUpdate();
+	    screenRefresh();
         std::cin >> choice;
         if(choice == 1)//hit
         {
@@ -348,6 +354,13 @@ void Executive::changeLScreen(int mode){
         for(int i=0; i<19; i++){
             for(int j=1; j<19; j++){
                 baseScreen[j][i]=mode6[j][i];
+            }
+        }
+    }
+    if(mode == 7){
+        for(int i=0; i<19; i++){
+            for(int j=1; j<19; j++){
+                baseScreen[j][i]=mode7[j][i];
             }
         }
     }
