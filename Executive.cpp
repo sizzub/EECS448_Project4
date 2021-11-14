@@ -48,13 +48,21 @@ void Executive::run()
     if(currentPlayer == 0) //user turn
     {
       do {
-	display();
+	//display();
+	changeLScreen(1);
+	clearScreen();
+	allUpdate();
+	screenRefresh();
         std::cin >> choice;
         if(choice == 1)//hit
         {
           player->hit(deck);
           if(player->isBust()) {
-            displaybust();
+            //displaybust();
+            changeLScreen(2);
+            allUpdate();
+            screenRefresh();
+            //input bust message
 	    cin>>choice;
             choice = 2;
           }
@@ -68,11 +76,14 @@ void Executive::run()
     {
       
       do {
-	displayend();
+    //displayend();
+    changeLScreen(3);
+	allUpdate();
+	screenRefresh();
 	usleep(500000);
         if(dealer->handValue() >= 17)
         {
-	  cout<<"stay";
+	  //cout<<"stay";
 	  usleep(500000);
 	  
           choice = 4;
@@ -80,7 +91,7 @@ void Executive::run()
         if(dealer->handValue() <= 16)
         {
           dealer->hit(deck);
-	  cout<<"hit";
+	  //cout<<"hit";
 	  usleep(500000);
           if(dealer->isBust()) {
             //dealer lost
@@ -96,9 +107,7 @@ void Executive::run()
     //the end of game//////////////////////////////
     usleep(2000000);
     winningCondition(dealer, player);
-    usleep(2000000);
-	  
-	continueGame=contGame();
+	cin>>continueGame;
 
   } while(continueGame == 1);
 
@@ -201,24 +210,29 @@ void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
   if( ( (player->handValue() > dealer->handValue()) || (dealer->isBust()) ) && (!(player->isBust())) )
     {
         //playyer wins
-      winner="Player wins";
-      wins++;
+        changeLScreen(4);
+	    allUpdate();
+	    screenRefresh();
+        wins++;
     }
   else if( ((player->handValue() == dealer->handValue())) || ( (dealer->isBust()) && (player->isBust())  ) )
     {
         //push
-      winner="Tie";
+        changeLScreen(5);
+	    allUpdate();
+	    screenRefresh();
       ties++;
     }
     else
     {
-        //HOUSE WINS
-      winner="Dealer wins";
+        changeLScreen(6);
+	    allUpdate();
+	    screenRefresh();
       losses++;
     }
-  cout<<"\x1B[2J\x1B[H";
+  //cout<<"\x1B[2J\x1B[H";
   //cout<<"WinningCondition\n";
-  cout<<"Wins: "<<wins<<"\nTies: "<<ties<<"\nLosses: "<<losses<<"\n\n"<<winner<<"\n\n";
+  //cout<<"Wins: "<<wins<<"\nTies: "<<ties<<"\nLosses: "<<losses<<"\n\n"<<winner<<"\n\n";
 }
 
 void Executive::resetDeck() {
@@ -228,6 +242,10 @@ void Executive::resetDeck() {
   }
   random_shuffle(deck.begin(), deck.end());
 }
+
+
+
+
 
 
 
@@ -264,7 +282,7 @@ void Executive::printSomething(char inputSomething){
         cout<<"♝ ";
     }
     else if(inputSomething=='v'){
-        cout<<"o ";
+        cout<<"& ";
     }
     else{
     cout<<inputSomething<<" ";
@@ -274,6 +292,7 @@ void Executive::printSomething(char inputSomething){
 
 
 void Executive::screenRefresh() {
+    cout<<"\x1B[2J\x1B[H";
     for(int i = 0; i < 29; i ++) {
         for(int j = 0; j < 60; j++) {
             printSomething(baseScreen[i][j]);
@@ -282,10 +301,75 @@ void Executive::screenRefresh() {
     }   
 }
 
+void Executive::changeLScreen(int mode){
+    if(mode == 0){
+        for(int i=0; i<19; i++){
+            for(int j=1; j<19; j++){
+                baseScreen[j][i]=' ';
+            }
+        }
+    }
+    if(mode == 1){
+        for(int i=0; i<19; i++){
+            for(int j=1; j<19; j++){
+                baseScreen[j][i]=mode1[j][i];
+            }
+        }
+    }
+    if(mode == 2){
+        for(int i=0; i<19; i++){
+            for(int j=1; j<19; j++){
+                baseScreen[j][i]=mode2[j][i];
+            }
+        }
+    }
+    if(mode == 3){
+        for(int i=0; i<19; i++){
+            for(int j=1; j<19; j++){
+                baseScreen[j][i]=mode3[j][i];
+            }
+        }
+    }
+    if(mode == 4){
+        for(int i=0; i<19; i++){
+            for(int j=1; j<19; j++){
+                baseScreen[j][i]=mode4[j][i];
+            }
+        }
+    }
+    if(mode == 5){
+        for(int i=0; i<19; i++){
+            for(int j=1; j<19; j++){
+                baseScreen[j][i]=mode5[j][i];
+            }
+        }
+    }
+    if(mode == 6){
+        for(int i=0; i<19; i++){
+            for(int j=1; j<19; j++){
+                baseScreen[j][i]=mode6[j][i];
+            }
+        }
+    }
+}
+
 void Executive::insertCard(int x, int y, int card){
     for(int i=x; i<x+5; i++){
         for(int j=y; j<y+7; j++){
             baseScreen[j][i]=cards[j-y+(card*7)][i-x];
+        }
+    }
+}
+
+void Executive::clearScreen(){
+    for(int i=20; i<40; i++){
+        for(int j=1; j<13; j++){
+            baseScreen[j][i]=' ';
+        }
+    }
+    for(int i=20; i<40; i++){
+        for(int j=15; j<27; j++){
+            baseScreen[j][i]=' ';
         }
     }
 }
@@ -374,9 +458,91 @@ void Executive::betUpdate(){
     }
 }
 
+void Executive::cardsUpdate(){
+    cout<<"hello123";
+    cout<<dealer->getCard(0);
+    insertCard(3, 33, dealer->getCard(0));
+    for(int i=0; i<21; i++){
+        if(dealer->getCard(i)>=0){
+            if(i==0){
+                insertCard(33, 3, dealer->getCard(i));
+            }
+            else if(i==1){
+                insertCard(31, 4, dealer->getCard(i));
+            }
+            else if(i%9==2){
+                insertCard(21, 2, dealer->getCard(i));
+            }
+            else if(i%9==3){
+                insertCard(23, 2, dealer->getCard(i));
+            }
+            else if(i%9==4){
+                insertCard(25, 2, dealer->getCard(i));
+            }
+            else if(i%9==5){
+                insertCard(21, 5, dealer->getCard(i));
+            }
+            else if(i%9==6){
+                insertCard(23, 5, dealer->getCard(i));
+            }
+            else if(i%9==7){
+                insertCard(25, 5, dealer->getCard(i));
+            }
+            else if(i%9==8){
+                insertCard(21, 8, dealer->getCard(i));
+            }
+            else if(i%9==0){
+                insertCard(23, 8, dealer->getCard(i));
+            }
+            else if(i%9==1){
+                insertCard(25, 8, dealer->getCard(i));
+            }
+        }
+    }
+    
+    for(int i=0; i<21; i++){
+        if(player->getCard(i)>=0){
+            if(i==0){
+                insertCard(24, 18, player->getCard(i));
+            }
+            else if(i==1){
+                insertCard(22, 19, player->getCard(i));
+            }
+            else if(i%9==2){
+                insertCard(30, 16, player->getCard(i));
+            }
+            else if(i%9==3){
+                insertCard(32, 16, player->getCard(i));
+            }
+            else if(i%9==4){
+                insertCard(34, 16, player->getCard(i));
+            }
+            else if(i%9==5){
+                insertCard(30, 18, player->getCard(i));
+            }
+            else if(i%9==6){
+                insertCard(32, 18, player->getCard(i));
+            }
+            else if(i%9==7){
+                insertCard(34, 18, player->getCard(i));
+            }
+            else if(i%9==8){
+                insertCard(30, 20, player->getCard(i));
+            }
+            else if(i%9==0){
+                insertCard(32, 20, player->getCard(i));
+            }
+            else if(i%9==1){
+                insertCard(34, 20, player->getCard(i));
+            }
+        }
+    }
+}
+
 void Executive::allUpdate(){
     dealerValueUpdate();
     playerValueUpdate();
     balanceUpdate();
     betUpdate();
+    cardsUpdate();
 }
