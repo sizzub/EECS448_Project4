@@ -228,3 +228,155 @@ void Executive::resetDeck() {
   }
   random_shuffle(deck.begin(), deck.end());
 }
+
+
+
+
+void Executive::printSomething(char inputSomething){
+    if(inputSomething=='a'){
+        cout<<"♣ ";
+    }
+    else if(inputSomething=='b'){
+        cout<<"♦ ";
+    }
+    else if(inputSomething=='c'){
+        cout<<"♥ ";
+    }
+    else if(inputSomething=='d'){
+        cout<<"♠ ";
+    }
+    else if(inputSomething=='e'){
+        cout<<"♔ ";
+    }
+    else if(inputSomething=='f'){
+        cout<<"♕ ";
+    }
+    else if(inputSomething=='g'){
+        cout<<"♗ ";
+    }
+    else if(inputSomething=='h'){
+        cout<<"♚ ";
+    }
+    else if(inputSomething=='i'){
+        cout<<"♛ ";
+    }
+    else if(inputSomething=='j'){
+        cout<<"♝ ";
+    }
+    else if(inputSomething=='v'){
+        cout<<"o ";
+    }
+    else{
+    cout<<inputSomething<<" ";
+    }
+    return;
+}
+
+
+void Executive::screenRefresh() {
+    for(int i = 0; i < 29; i ++) {
+        for(int j = 0; j < 60; j++) {
+            printSomething(baseScreen[i][j]);
+        }
+        cout << '\n';
+    }   
+}
+
+void Executive::insertCard(int x, int y, int card){
+    for(int i=x; i<x+5; i++){
+        for(int j=y; j<y+7; j++){
+            baseScreen[j][i]=cards[j-y+(card*7)][i-x];
+        }
+    }
+}
+
+void Executive::dealerValueUpdate(){
+    string strVal= to_string(13);
+    
+    if(strVal.length()==2){
+        baseScreen[13][35]=strVal[0];
+        baseScreen[13][36]=strVal[1];
+    }
+    if(strVal.length()==1){
+        baseScreen[13][35]=' ';
+        baseScreen[13][36]=strVal[0];
+    }
+    if(strVal.length()==0){
+        baseScreen[13][35]=' ';
+        baseScreen[13][36]=' ';
+    }
+}
+
+void Executive::playerValueUpdate(){
+    string strVal= to_string(10);
+    
+    if(strVal.length()==2){
+        baseScreen[27][35]=strVal[0];
+        baseScreen[27][36]=strVal[1];
+    }
+    if(strVal.length()==1){
+        baseScreen[27][35]=' ';
+        baseScreen[27][36]=strVal[0];
+    }
+    if(strVal.length()==0){
+        baseScreen[27][35]=' ';
+        baseScreen[27][36]=' ';
+    }
+}
+
+void Executive::balanceUpdate(){
+    string strBal= to_string(balance);
+    string error="HOW DID YOU DO IT";
+    if(strBal.length() > 17){
+        for(int i=1; i<18; i++){
+            baseScreen[27][i]=error[i-1];
+        }
+    }
+    else{
+        int frontSpace= (17-strBal.length())/2;
+        
+        for(int i=1; i<frontSpace+1; i++){
+            baseScreen[27][i]=' ';
+        }
+        
+        for(int i=frontSpace+1; i<strBal.length()+frontSpace+1; i++){
+            baseScreen[27][i]=strBal[i-frontSpace-1];
+        }
+        
+        for(int i=strBal.length()+frontSpace+1; i<18; i++){
+            baseScreen[27][i]=' ';
+        }
+    }
+}
+
+void Executive::betUpdate(){
+    string strBal= to_string(bet);
+    string error="HOW DID YOU DO IT";
+    if(strBal.length() > 17){
+        for(int i=42; i<58; i++){
+            baseScreen[27][i]=error[i-41];
+        }
+    }
+    else{
+        int frontSpace= (17-strBal.length())/2;
+        
+        for(int i=42; i<frontSpace+42; i++){
+            baseScreen[27][i]=' ';
+        }
+        
+        for(int i=frontSpace+42; i<strBal.length()+frontSpace+42; i++){
+            baseScreen[27][i]=strBal[i-frontSpace-42];
+        }
+        
+        for(int i=strBal.length()+frontSpace+42; i<58; i++){
+            baseScreen[27][i]=' ';
+        }
+    }
+}
+
+void Executive::allUpdate(){
+    dealerValueUpdate();
+    playerValueUpdate();
+    balanceUpdate();
+    betUpdate();
+}
