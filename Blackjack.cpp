@@ -35,6 +35,10 @@ void Blackjack::adjustBank(int value)
     return;
 }
 
+int Blackjack::getBankValue()
+{
+    return bank;
+}
 bool Blackjack::checkBet(int value)
 {
     if(value < 5)

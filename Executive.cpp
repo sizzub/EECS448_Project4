@@ -49,12 +49,22 @@ void Executive::run()
     {
       do {
 	//display();
-	
+        balance = player->getBankValue();
 	    changeLScreen(7);
 	    clearScreen();
 	    allUpdate();
 	    screenRefresh();
 	    cin>>bet;
+
+        while(!(player->checkBet(bet)))
+        {
+            changeLScreen(7);
+            clearScreen();
+            allUpdate();
+            screenRefresh();
+            cin>>bet;
+        }
+
 	    
 	    changeLScreen(1);
 	    allUpdate();
@@ -69,7 +79,7 @@ void Executive::run()
             allUpdate();
             screenRefresh();
             //input bust message
-	    cin>>choice;
+	        cin>>choice;
             choice = 2;
           }
         }
@@ -219,6 +229,7 @@ void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
         changeLScreen(4);
 	    allUpdate();
 	    screenRefresh();
+        player->adjustBank(bet);
         wins++;
     }
   else if( ((player->handValue() == dealer->handValue())) || ( (dealer->isBust()) && (player->isBust())  ) )
@@ -227,14 +238,16 @@ void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
         changeLScreen(5);
 	    allUpdate();
 	    screenRefresh();
-      ties++;
+        ties++;
     }
     else
     {
         changeLScreen(6);
 	    allUpdate();
 	    screenRefresh();
-      losses++;
+        bet = bet - (2*bet);
+        player->adjustBank(bet);
+        losses++;
     }
   //cout<<"\x1B[2J\x1B[H";
   //cout<<"WinningCondition\n";

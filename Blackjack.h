@@ -95,6 +95,14 @@ public:
 	* @return returns true if the amount the user is betting is correct, false if not
 	*/
 	bool checkBet(int value);
+
+	/*
+	* @pre none
+	* @post none
+	* @param none
+	* @return returns the bank total 
+	*/
+	int getBankValue();
 	
 };
 #endif
