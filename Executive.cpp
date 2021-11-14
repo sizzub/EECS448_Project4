@@ -291,7 +291,7 @@ void Executive::insertCard(int x, int y, int card){
 }
 
 void Executive::dealerValueUpdate(){
-    string strVal= to_string(13);
+    string strVal= to_string(dealer->handValue());
     
     if(strVal.length()==2){
         baseScreen[13][35]=strVal[0];
@@ -308,7 +308,7 @@ void Executive::dealerValueUpdate(){
 }
 
 void Executive::playerValueUpdate(){
-    string strVal= to_string(10);
+    string strVal= to_string(player->handValue());
     
     if(strVal.length()==2){
         baseScreen[27][35]=strVal[0];
