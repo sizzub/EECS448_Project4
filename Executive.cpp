@@ -82,6 +82,24 @@ void Executive::run()
 	        cin>>choice;
             choice = 2;
           }
+        } else if (choice == 3)//double
+        {
+            player->doubleBet(bet);
+            player->hit(deck);
+            choice = 2;
+            if(player->isBust()) {
+                //displaybust();
+                changeLScreen(2);
+                allUpdate();
+                screenRefresh();
+                //input bust message
+                cin>>choice;
+                choice = 2;
+            }
+        } else if (choice == 4)//surrender
+        {
+            player->surrender(bet);
+            choice = 2;
         }
       } while(choice !=2);
       turnChange();
@@ -145,8 +163,11 @@ void Executive::display()
 
     }
   }
-  cout<<"\n\nhit(1) or stand(2): ";
-  
+  if (player->getHandSize() == 2) {
+    cout << "\n\nhit(1) or stand(2) or double(3) or surrender(4)"
+  } else {
+    cout<<"\n\nhit(1) or stand(2): ";
+  }
 }
 
 void Executive::displayend()

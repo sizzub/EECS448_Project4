@@ -103,6 +103,22 @@ public:
 	* @return returns the bank total 
 	*/
 	int getBankValue();
+
+	/*
+	* @pre none
+	* @post none
+	* @param int value, the value of the users current bet
+	* @return returns the users current bet doubled
+	*/
+	int doubleBet(int value);
+
+	/*
+	* @pre none
+	* @post none
+	* @param int value, the value of the users current bet
+	* @return returns the users current bet halved
+	*/
+	int surrender(int value);
 	
 };
 #endif
