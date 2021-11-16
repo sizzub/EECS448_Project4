@@ -169,3 +169,10 @@ int Blackjack::cardValue(int card) {
         return (cardNum + 1);
     }
 }
+
+void Blackjack::clearHand() {
+    for (int i = 0; i <= 21; i++) {
+        hand[i] = -1;
+    }
+    handSize = 0;
+}
