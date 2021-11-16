@@ -120,5 +120,14 @@ public:
 	*/
 	int surrender(int value);
 	
+	
+	/*
+	* @pre none
+	* @post resets all values in hand to -1 and sets handSize to 0
+	* @param none
+	* @return none
+	*/
+	void clearHand();
+	
 };
 #endif
