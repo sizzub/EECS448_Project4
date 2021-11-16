@@ -66,8 +66,7 @@ int Blackjack::doubleBet(int value) {
 
 int Blackjack::surrender(int value) {
     int surrenderedBet = 0;
-    surrenderedBet = value/2;
-
+    surrenderedBet = value*2
 }
 
 int Blackjack::handValue() {//returns the optimal hand value for the player (counts aces as 1 if they would cause a bust, 11 otherwise)

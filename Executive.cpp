@@ -84,7 +84,7 @@ void Executive::run()
           }
         } else if (choice == 3)//double
         {
-            player->doubleBet(bet);
+            bet = player->doubleBet(bet);
             player->hit(deck);
             choice = 2;
             if(player->isBust()) {
@@ -98,8 +98,11 @@ void Executive::run()
             }
         } else if (choice == 4)//surrender
         {
-            player->surrender(bet);
-            choice = 2;
+            bet = player->surrender(bet);
+            player->handValue() = 0;
+            dealer->handValue() = 0;
+            choice = 5;
+            break;
         }
       } while(choice !=2);
       turnChange();
@@ -120,7 +123,7 @@ void Executive::run()
 	  //cout<<"stay";
 	  usleep(500000);
 	  
-          choice = 4;
+          choice = 5;
         }
         if(dealer->handValue() <= 16)
         {
@@ -130,10 +133,10 @@ void Executive::run()
           if(dealer->isBust()) {
             //dealer lost
             //player gets win fucntion
-            choice = 4;
+            choice = 5;
           }
         }
-      } while(choice != 4);
+      } while(choice != 5);
       turnChange();
     }
 
@@ -242,9 +245,8 @@ bool Executive::contGame()
 
 void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
 {
-  
     //summing players hand
-  if( ( (player->handValue() > dealer->handValue()) || (dealer->isBust()) ) && (!(player->isBust())) )
+  else if( ( (player->handValue() > dealer->handValue()) || (dealer->isBust()) ) && (!(player->isBust())) )
     {
         //playyer wins
         changeLScreen(4);
@@ -253,12 +255,19 @@ void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
         player->adjustBank(bet);
         wins++;
     }
-  else if( ((player->handValue() == dealer->handValue())) || ( (dealer->isBust()) && (player->isBust())  ) )
+  else if( ((player->handValue() == dealer->handValue())) || ( (dealer->isBust()) && (player->isBust())))
     {
         //push
         changeLScreen(5);
 	    allUpdate();
 	    screenRefresh();
+        ties++;
+    }
+    else if (player->handValue() == 0 && dealer->handValue() == 0) {
+        changeLScreen(5);
+        allUpdate();
+        screenRefresh();
+        player->adjustBank(bet);
         ties++;
     }
     else
