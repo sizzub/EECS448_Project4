@@ -99,8 +99,8 @@ void Executive::run()
         } else if (choice == 4)//surrender
         {
             bet = player->surrender(bet);
-            player->handValue() = 0;
-            dealer->handValue() = 0;
+            player->clearHand();
+            dealer->clearHand();
             choice = 5;
             break;
         }
@@ -167,7 +167,7 @@ void Executive::display()
     }
   }
   if (player->getHandSize() == 2) {
-    cout << "\n\nhit(1) or stand(2) or double(3) or surrender(4)"
+    cout << "\n\nhit(1) or stand(2) or double(3) or surrender(4)";
   } else {
     cout<<"\n\nhit(1) or stand(2): ";
   }
@@ -246,7 +246,7 @@ bool Executive::contGame()
 void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
 {
     //summing players hand
-  else if( ( (player->handValue() > dealer->handValue()) || (dealer->isBust()) ) && (!(player->isBust())) )
+  if( ( (player->handValue() > dealer->handValue()) || (dealer->isBust()) ) && (!(player->isBust())) )
     {
         //playyer wins
         changeLScreen(4);
