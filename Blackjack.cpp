@@ -87,12 +87,14 @@ int Blackjack::handValue() {//returns the optimal hand value for the player (cou
     }
     
     //determine value of hand with aces:
-    val += numAces - 1; //since you can't have 2 "11" aces without busting, consider all aces but one to be value of 1
-    if (val + 11 <= 21) {//if counting the ace as 11 does not cause the hand to bust, do so
-        val += 11;
-    }
-    else {//if an 11 would cause a bust, count it as a 1
-        val += 1;
+    if (numAces > 0) {
+        val += numAces - 1; //since you can't have 2 "11" aces without busting, consider all aces but one to be value of 1
+        if (val + 11 <= 21) {//if counting the ace as 11 does not cause the hand to bust, do so
+            val += 11;
+        }
+        else {//if an 11 would cause a bust, count it as a 1
+            val += 1;
+        }
     }
     
     return(val);
