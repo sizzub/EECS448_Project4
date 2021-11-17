@@ -159,6 +159,15 @@ class Executive {
 	* @return Deck
 	*/
 	vector<int> getDeck();
+	
+	/*
+	* @pre none
+	* @post none
+	* @param modulus of the random number
+	* @return random number modulo n
+	*/
+        static int seed(int n);
+
 };
 
 #endif
