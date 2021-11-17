@@ -36,8 +36,8 @@ void Executive::run()
   //Turn phase
   do{
   continueGame = false;
-  player->resetPlayer();
-  dealer->resetPlayer();
+  player->clearHand();
+  dealer->clearHand();
   resetDeck();
   bet=0;
   currentPlayer = 0; //The player0 is user and player1 is Dealer(ai)

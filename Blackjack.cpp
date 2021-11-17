@@ -29,14 +29,6 @@ int Blackjack::getCard(int index) {
     }
 }
 
-void Blackjack::resetPlayer()
-{
-    for (int i = 0; i <= 21; i++) {
-        hand[i] = -1;
-    }
-    handSize = 0;
-}
-
 void Blackjack::adjustBank(int value)
 {
     bank = bank+value;
