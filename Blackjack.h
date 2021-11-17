@@ -128,6 +128,15 @@ public:
 	* @return none
 	*/
 	void clearHand();
+	
+	/*
+	* @pre none
+	* @post none
+	* @param modulus of the random number
+	* @return random number modulo n
+	*/
+        static int seed(int n);
+	
 	int getHand(int i);
 
 	void setHand(int i, int value);
