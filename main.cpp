@@ -13,6 +13,7 @@ int main()
   if(input == 1)
   {
     Executive exec;
+    exec.run();
   }
   else if(input ==2)
   {

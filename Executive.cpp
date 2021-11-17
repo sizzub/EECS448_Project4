@@ -18,7 +18,6 @@ Executive::Executive()
     dealer->hit(deck);
   }
   balance = player->getBankValue();
-  run();
 }
 
 void Executive::run()

@@ -133,8 +133,8 @@ void test::test5(Executive e)
 void test::test6(Executive e)
 {
     Blackjack temp;
-    //temp.setHand(0, -1);
-    //temp.setHand(1,-1);
+    temp.setHand(0, 13);
+    temp.setHand(1,11);
     cout << temp.getHand(0) << temp.getHand(1) << temp.getHand(2) << temp.getHand(21) << temp.getHand(20) << temp.getHand(19) <<"test\n";
     cout << temp.handValue();
     cout << temp.getHandSize();
