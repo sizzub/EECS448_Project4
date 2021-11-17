@@ -13,7 +13,13 @@ private:
 	
 public: 
 	
-	Blackjack(); //initialize hand and handSize
+	/*
+	* @pre none
+	* @post fills hand with all -1's, sets handSize to 0 and bank to 150
+	* @param none
+	* @return none
+	*/
+	Blackjack();
 	
 	/*
 	* @pre hand initialized
