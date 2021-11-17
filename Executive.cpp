@@ -101,8 +101,8 @@ void Executive::run()
             bet = player->surrender(bet);
             player->clearHand();
             dealer->clearHand();
-            choice = 5;
-            break;
+            turnChange();
+            choice = 2;
         }
       } while(choice !=2);
       turnChange();
