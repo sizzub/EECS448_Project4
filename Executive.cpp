@@ -591,7 +591,7 @@ void Executive::betUpdate(){
 }
 
 void Executive::cardsUpdate(){
-    cout<<dealer->getCard(0);
+    //cout<<dealer->getCard(0);
     insertCard(3, 33, dealer->getCard(0));
     for(int i=0; i<21; i++){
         if(dealer->getCard(i)>=0){
