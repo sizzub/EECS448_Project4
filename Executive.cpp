@@ -452,6 +452,13 @@ void Executive::changeLScreen(int mode){
             }
         }
     }
+    if(mode == 14){
+        for(int i=0; i<19; i++){
+            for(int j=1; j<19; j++){
+                baseScreen[j][i]=mode14[j][i];
+            }
+        }
+    }
 	
 }
 
