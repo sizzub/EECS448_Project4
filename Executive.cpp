@@ -7,6 +7,7 @@
 #include "Executive.h"
 #include "Blackjack.h"
 using namespace std;
+
 Executive::Executive()
 {
   player = new Blackjack();
@@ -34,80 +35,67 @@ void Executive::run()
 
   //Turn phase
   do{
-  continueGame = false;
-  player->clearHand();
-  dealer->clearHand();
-  resetDeck();
-  bet=0;
-  currentPlayer = 0; //The player0 is user and player1 is Dealer(ai)
-  for (int i = 0; i < 2; i++) {
-    player->hit(deck);
-    dealer->hit(deck);
-  }
+    continueGame = false;
+    player->clearHand();
+    dealer->clearHand();
+    resetDeck();
+    bet=0;
+    currentPlayer = 0; //The player0 is user and player1 is Dealer(ai)
+    for (int i = 0; i < 2; i++) {
+        player->hit(deck);
+        dealer->hit(deck);
+    }
   
   
     if(currentPlayer == 0) //user turn
     {
         changeLScreen(7);
 	    clearScreen();
+        screenRefresh();
+	    cin >> bet;
 	    allUpdate();
-	    screenRefresh();
-	    cin>>bet;
-      do {
-	//display();
-        while(player->checkBet(bet) != 0)
-        {
-            int tempVal = player->checkBet(bet);
-            if(tempVal == 1)
-            {
-                changeLScreen(10);
-                screenRefresh();
-            }
-            else if(tempVal == 2)
-            {
-                changeLScreen(11);
-                screenRefresh();
-            }
-            else if(tempVal == 3)
-            {
-                changeLScreen(12);
-                screenRefresh();
-            }
-            else if(tempVal == 4)
-            {
-                changeLScreen(14);
-                screenRefresh();
-            }
-            usleep(500000);
-            changeLScreen(7);
+        do {
+            //Checks the users bet to make sure it is a valid bet
+            bet = checkBet(bet,0);
+            int surDoub = 0;
+            changeLScreen(9);
             screenRefresh();
-	        cin>>bet;
-        }
-
-	    
-	    changeLScreen(1);
-	    allUpdate();
-	    screenRefresh();
-        std::cin >> choice;
-        if(choice == 1)//hit
-        {
-          player->hit(deck);
-          if(player->isBust()) {
-            //displaybust();
-            changeLScreen(2);
+            cin >> surDoub;
+            if(surDoub==2)
+            {
+                bet = player->doubleBet(bet);
+                bet = checkBet(bet, surDoub);
+                choice = 3;
+            }
+            else
+            {
+                changeLScreen(8);
+                screenRefresh();
+                cin >> surDoub;
+                if(surDoub==2)
+                {
+                    bet = player->surrender(bet);
+                    choice = 4;
+                }
+                else
+                {
+                    //Asks the user to hit or stay
+                    changeLScreen(1);
+                    allUpdate();
+                    screenRefresh();
+                    std::cin >> choice;
+                }
+            }
+            //Asks the user to hit or stay
+            changeLScreen(1);
             allUpdate();
             screenRefresh();
-            //input bust message
-	        cin>>choice;
-            choice = 2;
-          }
-        } else if (choice == 3)//double
-        {
-            bet = player->doubleBet(bet);
+            std::cin >> choice;
+
+            if(choice == 1)//hit
+            {
             player->hit(deck);
-            choice = 2;
             if(player->isBust()) {
-                //displaybust();
                 changeLScreen(2);
                 allUpdate();
                 screenRefresh();
@@ -115,15 +103,27 @@ void Executive::run()
                 cin>>choice;
                 choice = 2;
             }
-        } else if (choice == 4)//surrender
-        {
-            bet = player->surrender(bet);
-            player->clearHand();
-            dealer->clearHand();
-            turnChange();
-            choice = 2;
-        }
-      } while(choice !=2);
+            } else if (choice == 3)//double
+            {
+                player->hit(deck);
+                choice = 2;
+                if(player->isBust()) {
+                    //displaybust();
+                    changeLScreen(2);
+                    allUpdate();
+                    screenRefresh();
+                    //input bust message
+                    cin>>choice;
+                    choice = 2;
+                }
+            } else if (choice == 4)//surrender
+            {
+                player->clearHand();
+                dealer->clearHand();
+                turnChange();
+                choice = 2;
+            }
+        } while(choice !=2);
       turnChange();
     }
 
@@ -587,7 +587,6 @@ void Executive::betUpdate(){
 }
 
 void Executive::cardsUpdate(){
-    cout<<"hello123";
     cout<<dealer->getCard(0);
     insertCard(3, 33, dealer->getCard(0));
     for(int i=0; i<21; i++){
@@ -691,4 +690,62 @@ vector<int> Executive::getDeck()
 
 int Executive::seed(int n) {
   return (rand() % n);
+}
+
+int Executive::checkBet(int bet, int surDoub)
+{   
+    if(surDoub == 2)
+    {
+        int tempVal = player->checkBet(bet);
+        int dummy = 0;
+        if(tempVal == 1)
+        {
+            changeLScreen(10);
+            screenRefresh();
+            cin>>dummy;
+        }
+        else if(tempVal == 4)
+        {
+            changeLScreen(14);
+            screenRefresh();
+            cin>>dummy;
+        }
+        return bet/2;
+    }
+    else
+    {
+        while(player->checkBet(bet) != 0)
+        {
+            int tempVal = player->checkBet(bet);
+            int dummy = 0;
+            if(tempVal == 1)
+            {
+                changeLScreen(10);
+                screenRefresh();
+                cin>>dummy;
+            }
+            else if(tempVal == 2)
+            {
+                changeLScreen(11);
+                screenRefresh();
+                cin>>dummy;
+            }
+            else if(tempVal == 3)
+            {
+                changeLScreen(12);
+                screenRefresh();
+                cin>>dummy;
+            }
+            else if(tempVal == 4)
+            {
+                changeLScreen(14);
+                screenRefresh();
+                cin>>dummy;
+            }
+            changeLScreen(7);
+            screenRefresh();
+            cin>>bet;
+        }
+        return bet;
+    }
 }

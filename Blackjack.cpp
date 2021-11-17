@@ -73,6 +73,10 @@ int Blackjack::doubleBet(int value) {
 int Blackjack::surrender(int value) {
     int surrenderedBet = 0;
     surrenderedBet = value/2;
+    if(surrenderedBet%5 != 0)
+    {
+        surrenderedBet = surrenderedBet+3;
+    }
     return(surrenderedBet);
 }
 

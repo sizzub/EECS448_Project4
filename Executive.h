@@ -168,6 +168,14 @@ class Executive {
 	*/
         static int seed(int n);
 
+	/*
+	* @pre none
+	* @post none
+	* @param int bet, the bet that user chose
+	* @return the correct bet
+	*/
+	int checkBet(int bet, int surDoub);
+
 };
 
 #endif
