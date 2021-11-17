@@ -606,3 +606,17 @@ void Executive::allUpdate(){
     betUpdate();
     cardsUpdate();
 }
+
+Blackjack* Executive::getPlayer()
+{
+    return(player);
+}
+
+Blackjack* Executive::getDealer()
+{
+    return(dealer);
+}
+vector<int> Executive::getDeck()
+{
+    return(deck);
+}

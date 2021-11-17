@@ -180,3 +180,12 @@ void Blackjack::clearHand() {
     }
     handSize = 0;
 }
+
+int Blackjack::getHand(int i) {
+    return(hand[i]);
+}
+
+void Blackjack::setHand(int i, int value) {
+    hand[i] = value;
+    handSize++;
+}

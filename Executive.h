@@ -119,6 +119,27 @@ class Executive {
 	
     void printSomething(char inputSomething);
 	void screenRefresh();//prints the screen
+		/*
+	* @pre none
+	* @post none
+	* @param none
+	* @return Player
+	*/
+	Blackjack* getPlayer();
+	/*
+	* @pre none
+	* @post none
+	* @param none
+	* @return Dealer
+	*/
+    Blackjack* getDealer();
+	/*
+	* @pre none
+	* @post none
+	* @param none
+	* @return Deck
+	*/
+	vector<int> getDeck();
 };
 
 #endif

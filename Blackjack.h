@@ -128,6 +128,8 @@ public:
 	* @return none
 	*/
 	void clearHand();
-	
+	int getHand(int i);
+
+	void setHand(int i, int value);
 };
 #endif
