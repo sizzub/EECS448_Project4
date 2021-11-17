@@ -266,7 +266,7 @@ void test::test14()
 void test::test15()
 {
     Blackjack test;
-    if(test.checkBet(4) != true)
+    if(test.checkBet(4) == 2)
     {
         cout << "PASSED\n";
     }
@@ -278,7 +278,7 @@ void test::test15()
 void test::test16()
 {
     Blackjack test;
-    if(test.checkBet(51) != true)
+    if(test.checkBet(51) == 1)
     {
         cout << "PASSED\n";
     }
@@ -290,7 +290,7 @@ void test::test17()
 {
     Blackjack test;
     test.adjustBank(-120);
-    if(test.checkBet(40) != true)
+    if(test.checkBet(40) == 4)
     {
         cout << "PASSED\n";
     }
