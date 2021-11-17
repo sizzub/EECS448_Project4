@@ -166,10 +166,22 @@ void Executive::run()
     //the end of game//////////////////////////////
     usleep(2000000);
     winningCondition(dealer, player);
-    allUpdate();
-	cin>>continueGame;
-
-  } while(!continueGame);
+    if(endGame==1)
+    {
+        continueGame=0;
+        changeLScreen(13);
+        screenRefresh();
+    }
+    else
+    {
+        allUpdate();
+        cin>>continueGame;
+        if(continueGame == 2)
+        {
+            continueGame = 0;
+        }
+    }
+  } while(continueGame == 1);
 
 
 }
@@ -279,7 +291,7 @@ void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
         balance = player->getBankValue();
         wins++;
     }
-  else if( ((player->handValue() == dealer->handValue())) || ( (dealer->isBust()) && (player->isBust())))
+  else if( (((player->handValue() == dealer->handValue())) || ( (dealer->isBust()) && (player->isBust()))) && dealer->handValue() != 0)
     {
         //push
         changeLScreen(5);
@@ -291,6 +303,7 @@ void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
         changeLScreen(5);
         allUpdate();
         screenRefresh();
+        bet = bet - (2*bet);
         player->adjustBank(bet);
         balance = player->getBankValue();
         ties++;
@@ -305,9 +318,11 @@ void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
         balance = player->getBankValue();
         losses++;
     }
-  //cout<<"\x1B[2J\x1B[H";
-  //cout<<"WinningCondition\n";
-  //cout<<"Wins: "<<wins<<"\nTies: "<<ties<<"\nLosses: "<<losses<<"\n\n"<<winner<<"\n\n";
+    
+    if(balance <= 0)
+    {
+        endGame=1;
+    }
 }
 
 void Executive::resetDeck() {
