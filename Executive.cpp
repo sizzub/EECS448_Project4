@@ -293,7 +293,8 @@ void Executive::resetDeck() {
   for (int i = 0; i < 312; i++) {
     deck.push_back(i % 52);
   }
-  random_shuffle(deck.begin(), deck.end(), rand());
+  int seed = rand();
+  random_shuffle(deck.begin(), deck.end(), seed);
 }
 
 
