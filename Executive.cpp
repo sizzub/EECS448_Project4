@@ -38,6 +38,7 @@ void Executive::run()
   player = new Blackjack();
   dealer = new Blackjack();
   resetDeck();
+  bet=0;
   currentPlayer = 0; //The player0 is user and player1 is Dealer(ai)
   for (int i = 0; i < 2; i++) {
     player->hit(deck);
@@ -47,14 +48,14 @@ void Executive::run()
   
     if(currentPlayer == 0) //user turn
     {
-      do {
-	//display();
         balance = player->getBankValue();
-	    changeLScreen(7);
+        changeLScreen(7);
 	    clearScreen();
 	    allUpdate();
 	    screenRefresh();
 	    cin>>bet;
+      do {
+	//display();
 
         while(!(player->checkBet(bet)))
         {
@@ -253,6 +254,7 @@ void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
 	    allUpdate();
 	    screenRefresh();
         player->adjustBank(bet);
+        balance = player->getBankValue();
         wins++;
     }
   else if( ((player->handValue() == dealer->handValue())) || ( (dealer->isBust()) && (player->isBust())))
@@ -268,6 +270,7 @@ void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
         allUpdate();
         screenRefresh();
         player->adjustBank(bet);
+        balance = player->getBankValue();
         ties++;
     }
     else
@@ -277,6 +280,7 @@ void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
 	    screenRefresh();
         bet = bet - (2*bet);
         player->adjustBank(bet);
+        balance = player->getBankValue();
         losses++;
     }
   //cout<<"\x1B[2J\x1B[H";
