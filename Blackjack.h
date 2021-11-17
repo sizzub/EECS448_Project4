@@ -92,9 +92,9 @@ public:
 	* @pre none
 	* @post none
 	* @param int value, the amount the user is betting
-	* @return returns true if the amount the user is betting is correct, false if not
+	* @return returns 0 = when the bet is good, 1=when the bet is too high, 2=when the bet is too low, 3= when the bet is not a multiple of 5, and 4=when the bank is empty
 	*/
-	bool checkBet(int value);
+	int checkBet(int value);
 
 	/*
 	* @pre none

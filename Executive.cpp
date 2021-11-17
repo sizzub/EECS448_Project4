@@ -55,14 +55,33 @@ void Executive::run()
 	    cin>>bet;
       do {
 	//display();
-
-        while(!(player->checkBet(bet)))
+        while(player->checkBet(bet) != 0)
         {
+            int tempVal = player->checkBet(bet);
+            if(tempVal == 1)
+            {
+                changeLScreen(10);
+                screenRefresh();
+            }
+            else if(tempVal == 2)
+            {
+                changeLScreen(11);
+                screenRefresh();
+            }
+            else if(tempVal == 3)
+            {
+                changeLScreen(12);
+                screenRefresh();
+            }
+            else if(tempVal == 4)
+            {
+                changeLScreen(14);
+                screenRefresh();
+            }
+            usleep(500000);
             changeLScreen(7);
-            clearScreen();
-            allUpdate();
             screenRefresh();
-            cin>>bet;
+	        cin>>bet;
         }
 
 	    
