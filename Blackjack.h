@@ -128,6 +128,14 @@ public:
 	* @return none
 	*/
 	void clearHand();
+
+	/*
+	* @pre none
+	* @post resets all values for the player in order to continue on with the game
+	* @param none
+	* @return none
+	*/
+	void resetPlayer();
 	
 };
 #endif

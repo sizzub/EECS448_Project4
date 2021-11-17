@@ -6,9 +6,9 @@
 #include <unistd.h>
 #include "Executive.h"
 #include "Blackjack.h"
+using namespace std;
 Executive::Executive()
 {
-  cout<<"hello";
   player = new Blackjack();
   dealer = new Blackjack();
   resetDeck();
@@ -17,6 +17,7 @@ Executive::Executive()
     player->hit(deck);
     dealer->hit(deck);
   }
+  balance = player->getBankValue();
   run();
 }
 
@@ -35,8 +36,8 @@ void Executive::run()
   //Turn phase
   do{
   continueGame = false;
-  player = new Blackjack();
-  dealer = new Blackjack();
+  player->resetPlayer();
+  dealer->resetPlayer();
   resetDeck();
   bet=0;
   currentPlayer = 0; //The player0 is user and player1 is Dealer(ai)
@@ -48,7 +49,6 @@ void Executive::run()
   
     if(currentPlayer == 0) //user turn
     {
-        balance = player->getBankValue();
         changeLScreen(7);
 	    clearScreen();
 	    allUpdate();

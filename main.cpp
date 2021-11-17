@@ -5,7 +5,6 @@
 
 int main()
 {
-  cout<<"hello2";
   Executive exec;
 
   return(0);
