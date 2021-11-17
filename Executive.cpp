@@ -40,6 +40,7 @@ void Executive::run()
     dealer->clearHand();
     resetDeck();
     bet=0;
+    allUpdate();
     currentPlayer = 0; //The player0 is user and player1 is Dealer(ai)
     for (int i = 0; i < 2; i++) {
         player->hit(deck);
@@ -54,43 +55,46 @@ void Executive::run()
         screenRefresh();
 	    cin >> bet;
 	    allUpdate();
-        do {
-            //Checks the users bet to make sure it is a valid bet
-            bet = checkBet(bet,0);
-            int surDoub = 0;
-            changeLScreen(9);
+        bet = checkBet(bet,0);
+        int surDoub = 0;
+        changeLScreen(9);
+        screenRefresh();
+        cin >> surDoub;
+        //Checks the users bet to make sure it is a valid bet
+        int temp_bet =0;
+        if(surDoub==2)
+        {
+            temp_bet = player->doubleBet(bet);
+            bet = checkBet(temp_bet, surDoub);
+            if(temp_bet != bet)
+            {
+                surDoub=0;
+            }
+            allUpdate();
+            choice = 3;
+        }
+        else
+        {
+            changeLScreen(8);
             screenRefresh();
             cin >> surDoub;
             if(surDoub==2)
             {
-                bet = player->doubleBet(bet);
-                bet = checkBet(bet, surDoub);
-                choice = 3;
+                bet = player->surrender(bet);
+                choice = 4;
             }
-            else
+        }
+        do {
+            //Checks the users bet to make sure it is a valid bet
+            if(surDoub!=2)
             {
-                changeLScreen(8);
+                //Asks the user to hit or stay
+                changeLScreen(1);
+                allUpdate();
                 screenRefresh();
-                cin >> surDoub;
-                if(surDoub==2)
-                {
-                    bet = player->surrender(bet);
-                    choice = 4;
-                }
-                else
-                {
-                    //Asks the user to hit or stay
-                    changeLScreen(1);
-                    allUpdate();
-                    screenRefresh();
-                    std::cin >> choice;
-                }
+                std::cin >> choice;
             }
-            //Asks the user to hit or stay
-            changeLScreen(1);
-            allUpdate();
-            screenRefresh();
-            std::cin >> choice;
+            
 
             if(choice == 1)//hit
             {
@@ -106,6 +110,7 @@ void Executive::run()
             } else if (choice == 3)//double
             {
                 player->hit(deck);
+                allUpdate();
                 choice = 2;
                 if(player->isBust()) {
                     //displaybust();
@@ -163,6 +168,7 @@ void Executive::run()
     //the end of game//////////////////////////////
     usleep(2000000);
     winningCondition(dealer, player);
+    allUpdate();
 	cin>>continueGame;
 
   } while(continueGame == 1);
@@ -703,14 +709,19 @@ int Executive::checkBet(int bet, int surDoub)
             changeLScreen(10);
             screenRefresh();
             cin>>dummy;
+            return bet/2;
         }
         else if(tempVal == 4)
         {
             changeLScreen(14);
             screenRefresh();
             cin>>dummy;
+            return bet/2;
         }
-        return bet/2;
+        else
+        {
+            return bet;
+        }
     }
     else
     {
