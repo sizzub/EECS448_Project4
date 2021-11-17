@@ -311,7 +311,7 @@ void Executive::resetDeck() {
   for (int i = 0; i < 312; i++) {
     deck.push_back(i % 52);
   }
-  random_shuffle(deck.begin(), deck.end());
+  random_shuffle(deck.begin(), deck.end(), seed);
 }
 
 
@@ -687,4 +687,8 @@ Blackjack* Executive::getDealer()
 vector<int> Executive::getDeck()
 {
     return(deck);
+}
+
+int Executive::seed(int n) {
+  return (rand() % n);
 }
