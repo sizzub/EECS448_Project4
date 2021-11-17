@@ -36,6 +36,7 @@ class Executive {
 
     public:
         Executive();
+
 	
 	/*
 	* @pre Executive initialized

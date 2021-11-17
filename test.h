@@ -12,22 +12,123 @@ public:
 test(Executive e, Blackjack b);
 ~test();
 /*
-* @pre Executive initialized
-* @post checks if the player wants to quit
-* @param none
-* @return 1 if the player wants to continue, 0 if the player wants to quit
+* @pre none
+* @post none
+* @param Executive e - The Blackjack class
+* @return A 'PASSED' or 'FAILED' is printed depending on results
 */	
 void test1(Blackjack b);
+/*
+* @pre none
+* @post none
+* @param Executive e - The Executive class
+* @return A 'PASSED' or 'FAILED' is printed depending on results
+*/
 void test2(Executive e);
+/*
+* @pre none
+* @post none
+* @param Executive e - The Executive class
+* @return A 'PASSED' or 'FAILED' is printed depending on results
+*/
 void test3(Executive e);
+/*
+* @pre none
+* @post none
+* @param Executive e - The Executive class
+* @return A 'PASSED' or 'FAILED' is printed depending on results
+*/
 void test4(Executive e);
+/*
+* @pre none
+* @post none
+* @param Executive e - The Executive class
+* @return A 'PASSED' or 'FAILED' is printed depending on results
+*/
 void test5(Executive e);
+/*
+* @pre none
+* @post none
+* @param Executive e - The Executive class
+* @return A 'PASSED' or 'FAILED' is printed depending on results
+*/
 void test6(Executive e);
+/*
+* @pre none
+* @post none
+* @param Executive e - The Executive class
+* @return A 'PASSED' or 'FAILED' is printed depending on results
+*/
 void test7(Executive e);
+/*
+* @pre none
+* @post none
+* @param Executive e - The Executive class
+* @return A 'PASSED' or 'FAILED' is printed depending on results
+*/
 void test8(Executive e);
+/*
+* @pre none
+* @post none
+* @param Executive e - The Executive class
+* @return A 'PASSED' or 'FAILED' is printed depending on results
+*/
 void test9(Executive e);
+/*
+* @pre none
+* @post none
+* @param Executive e - The Executive class
+* @return A 'PASSED' or 'FAILED' is printed depending on results
+*/
 void test10(Executive e);
+/*
+* @pre none
+* @post none
+* @param Executive e - The Executive class
+* @return A 'PASSED' or 'FAILED' is printed depending on results
+*/
 void test11(Executive e);
+/*
+* @pre none
+* @post none
+* @param Executive e - The Executive class
+* @return A 'PASSED' or 'FAILED' is printed depending on results
+*/
 void test12(Executive e);
+/*
+* @pre none
+* @post none
+* @param none
+* @return A 'PASSED' or 'FAILED' is printed depending on results
+*/
+void test13();
+/*
+* @pre none
+* @post none
+* @param none
+* @return A 'PASSED' or 'FAILED' is printed depending on results
+*/
+void test14();
+/*
+* @pre none
+* @post none
+* @param none
+* @return A 'PASSED' or 'FAILED' is printed depending on results
+*/
+void test15();
+/*
+* @pre none
+* @post none
+* @param none
+* @return A 'PASSED' or 'FAILED' is printed depending on results
+*/
+void test16();
+/*
+* @pre none
+* @post none
+* @param none
+* @return A 'PASSED' or 'FAILED' is printed depending on results
+*/
+void test17();
 };
 #endif

@@ -128,8 +128,19 @@ public:
 	* @return none
 	*/
 	void clearHand();
+	/*
+	* @pre none
+	* @post none
+	* @param int i, the array you want
+	* @return the card at that index
+	*/
 	int getHand(int i);
-
+	/*
+	* @pre none
+	* @post sets the value at the array's index
+	* @param int i the index, int value is the card value
+	* @return none
+	*/
 	void setHand(int i, int value);
 };
 #endif
