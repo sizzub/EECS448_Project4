@@ -39,23 +39,28 @@ int Blackjack::getBankValue()
 {
     return bank;
 }
-bool Blackjack::checkBet(int value)
+
+int Blackjack::checkBet(int value)
 {
     if(value < 5)
     {
-        return false;
+        return 2;
     }
     else if(value > 50)
     {
-        return false;
+        return 1;
     }
     else if(value > bank)
     {
-        return false;
+        return 4;
+    }
+    else if(value%5!=0)
+    {
+        return 3;
     }
     else
     {
-        return true;
+        return 0;
     }
 }
 
@@ -68,6 +73,10 @@ int Blackjack::doubleBet(int value) {
 int Blackjack::surrender(int value) {
     int surrenderedBet = 0;
     surrenderedBet = value/2;
+    if(surrenderedBet%5 != 0)
+    {
+        surrenderedBet = surrenderedBet+3;
+    }
     return(surrenderedBet);
 }
 
