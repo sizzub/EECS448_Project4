@@ -28,14 +28,12 @@ void Executive::run()
   ties=0;
   losses=0;
   int choice;
-  bool continueGame;
 
-  display();
   srand(time(NULL));
 
   //Turn phase
   do{
-    continueGame = false;
+    continueGame = 0;
     player->clearHand();
     dealer->clearHand();
     resetDeck();
@@ -171,7 +169,7 @@ void Executive::run()
     allUpdate();
 	cin>>continueGame;
 
-  } while(continueGame == 1);
+  } while(!continueGame);
 
 
 }
