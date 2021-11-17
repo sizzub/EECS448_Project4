@@ -410,6 +410,49 @@ void Executive::changeLScreen(int mode){
             }
         }
     }
+    if(mode == 8){
+        for(int i=0; i<19; i++){
+            for(int j=1; j<19; j++){
+                baseScreen[j][i]=mode8[j][i];
+            }
+        }
+    }
+    if(mode == 9){
+        for(int i=0; i<19; i++){
+            for(int j=1; j<19; j++){
+                baseScreen[j][i]=mode9[j][i];
+            }
+        }
+    }
+    if(mode == 10){
+        for(int i=0; i<19; i++){
+            for(int j=1; j<19; j++){
+                baseScreen[j][i]=mode10[j][i];
+            }
+        }
+    }
+    if(mode == 11){
+        for(int i=0; i<19; i++){
+            for(int j=1; j<19; j++){
+                baseScreen[j][i]=mode11[j][i];
+            }
+        }
+    }
+    if(mode == 12){
+        for(int i=0; i<19; i++){
+            for(int j=1; j<19; j++){
+                baseScreen[j][i]=mode12[j][i];
+            }
+        }
+    }
+    if(mode == 13){
+        for(int i=0; i<19; i++){
+            for(int j=1; j<19; j++){
+                baseScreen[j][i]=mode13[j][i];
+            }
+        }
+    }
+	
 }
 
 void Executive::insertCard(int x, int y, int card){
