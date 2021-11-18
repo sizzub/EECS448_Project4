@@ -129,28 +129,116 @@ class Executive {
 	
 	
 	
-    
+    /*
+	* @pre Executive initialized
+	* @post changes left display screen to one of 14 options
+	* @param int mode, selects which left screen to display, on 0 displays nothing
+	* @return none
+	*/
     void changeLScreen(int mode);
     
+    /*
+	* @pre Executive initialized
+	* @post changes the dealer value display to hold the proper value for the dealers hand
+	* @param none
+	* @return none
+	*/
     void dealerValueUpdate();
+    
+    /*
+	* @pre Executive initialized
+	* @post changes the player value display to hold the proper value for the players hand
+	* @param none
+	* @return none
+	*/
     void playerValueUpdate();
-    void balanceUpdate();// edits [27] [1-18]
-    void betUpdate();// edits [27] [42-58]
+    
+    /*
+	* @pre Executive initialized
+	* @post changes the balance display to be the current value of the balance
+	* @param none
+	* @return none
+	*/
+    void balanceUpdate();
+    
+    /*
+	* @pre Executive initialized
+	* @post changes the bet  display to be the current value of the bet
+	* @param none
+	* @return none
+	*/
+    void betUpdate();
+    
+    /*
+	* @pre Executive initialized
+	* @post places all the cards in the display for player dealer
+	* @param none
+	* @return none
+	*/
     void cardsUpdate();
     
+    /*
+	* @pre Executive initialized
+	* @post runs all the update functions that give all the information 
+	* @param none
+	* @return none
+	*/
     void allUpdate();
     
+    /*
+	* @pre Executive initialized
+	* @post changes the dealer value display to hold the proper value for the first card in dealers hand
+	* @param none
+	* @return none
+	*/
     void dealerValueOneCard();
-    void gamecardsUpdate(); //only prints 1 dealer card and the player cards
     
+    /*
+	* @pre Executive initialized
+	* @post places all the player cards and one dealer card
+	* @param none
+	* @return none
+	*/
+    void gamecardsUpdate();
+    
+    /*
+	* @pre Executive initialized
+	* @post runs all the update functions needed to display the screen during the players turn
+	* @param none
+	* @return none
+	*/
     void someUpdate();
     
-    void clearScreen();//removes cards
+    /*
+	* @pre Executive initialized
+	* @post emptys the displays that show cards
+	* @param none
+	* @return none
+	*/
+    void clearScreen();
 	
+	/*
+	* @pre Executive initialized
+	* @post places a card in the display at a specific location
+	* @param int x, the x axis of the upper left corner of the card, int y, the y axis of the upper left corner of the card, int card the id of the card to place
+	* @return none
+	*/
 	void insertCard(int x, int y, int card);// edits baseScreen to input a card
 	
-	
+    /*
+	* @pre Executive initialized
+	* @post couts a given char, lower case letter can be used to print non  askii chars as encoded
+	* @param char inputSomething, the char to be printed
+	* @return none
+	*/
     void printSomething(char inputSomething);
+    
+    /*
+	* @pre Executive initialized
+	* @post runs the printSomething function for every char in the baseScreen display
+	* @param none
+	* @return none
+	*/
 	void screenRefresh();//prints the screen
 	
 	
