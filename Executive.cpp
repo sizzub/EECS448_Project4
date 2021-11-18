@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <unistd.h>
+#include <limits>
 #include "Executive.h"
 #include "Blackjack.h"
 using namespace std;
@@ -53,11 +54,35 @@ void Executive::run()
         screenRefresh();
 	    cin >> bet;
 	    someUpdate();
+        while (!std::cin.good())
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+            clearScreen();
+            changeLScreen(15);
+            screenRefresh();
+            cin >> bet;
+        }
         bet = checkBet(bet,0);
         int surDoub = 0;
         changeLScreen(9);
         screenRefresh();
         cin >> surDoub;
+        while (!std::cin.good())
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+            changeLScreen(15);
+            screenRefresh();
+            cin >> surDoub;
+        }
+        while (surDoub != 1 || surDoub != 2) {
+            changeLScreen(15);
+            screenRefresh();
+            cin >> surDoub;
+        }
         //Checks the users bet to make sure it is a valid bet
         int temp_bet =0;
         if(surDoub==2)
@@ -76,6 +101,20 @@ void Executive::run()
             changeLScreen(8);
             screenRefresh();
             cin >> surDoub;
+            while (!std::cin.good())
+            {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                changeLScreen(15);
+                screenRefresh();
+                cin >> surDoub;
+            }
+            while (surDoub != 1 || surDoub != 2) {
+                changeLScreen(15);
+                screenRefresh();
+                cin >> surDoub;
+            }
             if(surDoub==2)
             {
                 bet = player->surrender(bet);
@@ -91,6 +130,20 @@ void Executive::run()
                 someUpdate();
                 screenRefresh();
                 std::cin >> choice;
+                while (!std::cin.good())
+                {
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                    changeLScreen(15);
+                    screenRefresh();
+                    cin >> choice;
+                }
+                while (choice != 1 || choice != 2) {
+                    changeLScreen(15);
+                    screenRefresh();
+                    cin >> choice;
+                }
             }
             
 
@@ -176,6 +229,20 @@ void Executive::run()
     {
         allUpdate();
         cin>>continueGame;
+        while (!std::cin.good())
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+            changeLScreen(15);
+            screenRefresh();
+            cin >> continueGame;
+        }
+        while (surDoub != 1 || surDoub != 2) {
+            changeLScreen(15);
+            screenRefresh();
+            cin >> continueGame;
+        }
         if(continueGame == 2)
         {
             continueGame = 0;
