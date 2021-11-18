@@ -55,8 +55,6 @@ class Executive {
 	
 	
 	
-	
-	
     int balance=0;
     int bet=0;
 
@@ -133,12 +131,19 @@ class Executive {
 	
     
     void changeLScreen(int mode);
+    
     void dealerValueUpdate();
     void playerValueUpdate();
     void balanceUpdate();// edits [27] [1-18]
     void betUpdate();// edits [27] [42-58]
     void cardsUpdate();
+    
     void allUpdate();
+    
+    void dealerValueOneCard();
+    void gamecardsUpdate(); //only prints 1 dealer card and the player cards
+    
+    void someUpdate();
     
     void clearScreen();//removes cards
 	
@@ -147,6 +152,8 @@ class Executive {
 	
     void printSomething(char inputSomething);
 	void screenRefresh();//prints the screen
+	
+	
 		/*
 	* @pre none
 	* @post none
