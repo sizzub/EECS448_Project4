@@ -38,7 +38,7 @@ void Executive::run()
     dealer->clearHand();
     resetDeck();
     bet=0;
-    allUpdate();
+    someUpdate();
     currentPlayer = 0; //The player0 is user and player1 is Dealer(ai)
     for (int i = 0; i < 2; i++) {
         player->hit(deck);
@@ -52,7 +52,7 @@ void Executive::run()
 	    clearScreen();
         screenRefresh();
 	    cin >> bet;
-	    allUpdate();
+	    someUpdate();
         bet = checkBet(bet,0);
         int surDoub = 0;
         changeLScreen(9);
@@ -68,7 +68,7 @@ void Executive::run()
             {
                 surDoub=0;
             }
-            allUpdate();
+            someUpdate();
             choice = 3;
         }
         else
@@ -88,7 +88,7 @@ void Executive::run()
             {
                 //Asks the user to hit or stay
                 changeLScreen(1);
-                allUpdate();
+                someUpdate();
                 screenRefresh();
                 std::cin >> choice;
             }
@@ -99,7 +99,7 @@ void Executive::run()
             player->hit(deck);
             if(player->isBust()) {
                 changeLScreen(2);
-                allUpdate();
+                someUpdate();
                 screenRefresh();
                 //input bust message
                 cin>>choice;
@@ -108,12 +108,12 @@ void Executive::run()
             } else if (choice == 3)//double
             {
                 player->hit(deck);
-                allUpdate();
+                someUpdate();
                 choice = 2;
                 if(player->isBust()) {
                     //displaybust();
                     changeLScreen(2);
-                    allUpdate();
+                    someUpdate();
                     screenRefresh();
                     //input bust message
                     cin>>choice;
@@ -342,41 +342,42 @@ void Executive::resetDeck() {
 
 void Executive::printSomething(char inputSomething){
     if(inputSomething=='a'){
-        cout<<"♣ ";
+        cout<<"♣";
     }
     else if(inputSomething=='b'){
-        cout<<"♦ ";
+        cout<<"♦";
     }
     else if(inputSomething=='c'){
-        cout<<"♥ ";
+        cout<<"♥";
     }
     else if(inputSomething=='d'){
-        cout<<"♠ ";
+        cout<<"♠";
     }
     else if(inputSomething=='e'){
-        cout<<"♔ ";
+        cout<<"♔";
     }
     else if(inputSomething=='f'){
-        cout<<"♕ ";
+        cout<<"♕";
     }
     else if(inputSomething=='g'){
-        cout<<"♗ ";
+        cout<<"♗";
     }
     else if(inputSomething=='h'){
-        cout<<"♚ ";
+        cout<<"♚";
     }
     else if(inputSomething=='i'){
-        cout<<"♛ ";
+        cout<<"♛";
     }
     else if(inputSomething=='j'){
-        cout<<"♝ ";
+        cout<<"♝";
     }
     else if(inputSomething=='v'){
-        cout<<"& ";
+        cout<<"#";
     }
     else{
-    cout<<inputSomething<<" ";
+    cout<<inputSomething;
     }
+    cout<<" ";
     return;
 }
 
@@ -501,21 +502,27 @@ void Executive::changeLScreen(int mode){
 }
 
 void Executive::insertCard(int x, int y, int card){
+    for(int i=x+1; i<x+4; i++){
+        baseScreen[y][i]=cards[(card*7)][i-x];
+    }
     for(int i=x; i<x+5; i++){
-        for(int j=y; j<y+7; j++){
+        for(int j=y+1; j<y+6; j++){
             baseScreen[j][i]=cards[j-y+(card*7)][i-x];
         }
+    }
+    for(int i=x+1; i<x+4; i++){
+        baseScreen[y+6][i]=cards[6+(card*7)][i-x];
     }
 }
 
 void Executive::clearScreen(){
     for(int i=20; i<40; i++){
-        for(int j=1; j<13; j++){
+        for(int j=2; j<13; j++){
             baseScreen[j][i]=' ';
         }
     }
     for(int i=20; i<40; i++){
-        for(int j=15; j<27; j++){
+        for(int j=16; j<27; j++){
             baseScreen[j][i]=' ';
         }
     }
@@ -606,8 +613,6 @@ void Executive::betUpdate(){
 }
 
 void Executive::cardsUpdate(){
-    //cout<<dealer->getCard(0);
-    insertCard(3, 33, dealer->getCard(0));
     for(int i=0; i<21; i++){
         if(dealer->getCard(i)>=0){
             if(i==0){
@@ -692,6 +697,81 @@ void Executive::allUpdate(){
     betUpdate();
     cardsUpdate();
 }
+
+
+void Executive::dealerValueOneCard(){
+    string strVal= to_string(dealer->cardValue(dealer->getCard(0)));
+    
+    if(strVal.length()==2){
+        baseScreen[13][35]=strVal[0];
+        baseScreen[13][36]=strVal[1];
+    }
+    if(strVal.length()==1){
+        baseScreen[13][35]=' ';
+        baseScreen[13][36]=strVal[0];
+    }
+    if(strVal.length()==0){
+        baseScreen[13][35]=' ';
+        baseScreen[13][36]=' ';
+    }
+}
+
+void Executive::gamecardsUpdate(){
+    for(int i=0; i<21; i++){
+        if(dealer->getCard(i)>=0){
+            if(i==0){
+                insertCard(33, 3, dealer->getCard(i));
+            }
+        }
+    }
+    
+    for(int i=0; i<21; i++){
+        if(player->getCard(i)>=0){
+            if(i==0){
+                insertCard(24, 18, player->getCard(i));
+            }
+            else if(i==1){
+                insertCard(22, 19, player->getCard(i));
+            }
+            else if(i%9==2){
+                insertCard(30, 16, player->getCard(i));
+            }
+            else if(i%9==3){
+                insertCard(32, 16, player->getCard(i));
+            }
+            else if(i%9==4){
+                insertCard(34, 16, player->getCard(i));
+            }
+            else if(i%9==5){
+                insertCard(30, 18, player->getCard(i));
+            }
+            else if(i%9==6){
+                insertCard(32, 18, player->getCard(i));
+            }
+            else if(i%9==7){
+                insertCard(34, 18, player->getCard(i));
+            }
+            else if(i%9==8){
+                insertCard(30, 20, player->getCard(i));
+            }
+            else if(i%9==0){
+                insertCard(32, 20, player->getCard(i));
+            }
+            else if(i%9==1){
+                insertCard(34, 20, player->getCard(i));
+            }
+        }
+    }
+}
+
+void Executive::someUpdate(){
+    dealerValueOneCard();
+    playerValueUpdate();
+    balanceUpdate();
+    betUpdate();
+    gamecardsUpdate();
+}
+
 
 Blackjack* Executive::getPlayer()
 {
