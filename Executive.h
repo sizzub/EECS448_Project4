@@ -58,6 +58,8 @@ class Executive {
 	
     int balance=0;
     int bet=0;
+	int someVar=0;
+	int mode=0;
 
 
     public:

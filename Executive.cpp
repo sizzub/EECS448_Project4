@@ -53,7 +53,6 @@ void Executive::run()
 	    clearScreen();
         screenRefresh();
 	    cin >> bet;
-	    someUpdate();
         while (!std::cin.good())
         {
             std::cin.clear();
@@ -62,10 +61,15 @@ void Executive::run()
             clearScreen();
             changeLScreen(15);
             screenRefresh();
+            cin >> someVar;
+            clearScreen();
+            changeLScreen(7);
+            screenRefresh();
             cin >> bet;
         }
         bet = checkBet(bet,0);
         int surDoub = 0;
+        allUpdate();
         changeLScreen(9);
         screenRefresh();
         cin >> surDoub;
@@ -76,10 +80,17 @@ void Executive::run()
 
             changeLScreen(15);
             screenRefresh();
+            cin >> someVar;
+            changeLScreen(9);
+            screenRefresh();
             cin >> surDoub;
         }
-        while (surDoub != 1 || surDoub != 2) {
+        while (surDoub < 1 && surDoub > 2) {
+            cout << "here";
             changeLScreen(15);
+            screenRefresh();
+            cin >> someVar;
+            changeLScreen(9);
             screenRefresh();
             cin >> surDoub;
         }
@@ -108,10 +119,16 @@ void Executive::run()
 
                 changeLScreen(15);
                 screenRefresh();
+                cin >> someVar;
+                changeLScreen(8);
+                screenRefresh();
                 cin >> surDoub;
             }
-            while (surDoub != 1 || surDoub != 2) {
+            while (surDoub < 1 && surDoub > 2) {
                 changeLScreen(15);
+                screenRefresh();
+                cin >> someVar;
+                changeLScreen(8);
                 screenRefresh();
                 cin >> surDoub;
             }
@@ -137,10 +154,16 @@ void Executive::run()
 
                     changeLScreen(15);
                     screenRefresh();
+                    cin >> someVar;
+                    changeLScreen(1);
+                    screenRefresh();
                     cin >> choice;
                 }
-                while (choice != 1 || choice != 2) {
+                while (choice < 1 && choice > 2) {
                     changeLScreen(15);
+                    screenRefresh();
+                    cin >> someVar;
+                    changeLScreen(1);
                     screenRefresh();
                     cin >> choice;
                 }
@@ -236,10 +259,16 @@ void Executive::run()
 
             changeLScreen(15);
             screenRefresh();
+            cin >> someVar;
+            changeLScreen(mode);
+            screenRefresh();
             cin >> continueGame;
         }
-        while (surDoub != 1 || surDoub != 2) {
+        while (continueGame < 1 && continueGame > 2) {
             changeLScreen(15);
+            screenRefresh();
+            cin >> someVar;
+            changeLScreen(mode);
             screenRefresh();
             cin >> continueGame;
         }
@@ -357,6 +386,7 @@ void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
         player->adjustBank(bet);
         balance = player->getBankValue();
         wins++;
+        mode=4;
     }
   else if( (((player->handValue() == dealer->handValue())) || ( (dealer->isBust()) && (player->isBust()))) && dealer->handValue() != 0)
     {
@@ -365,6 +395,7 @@ void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
 	    allUpdate();
 	    screenRefresh();
         ties++;
+        mode=5;
     }
     else if (player->handValue() == 0 && dealer->handValue() == 0) {
         changeLScreen(5);
@@ -374,6 +405,7 @@ void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
         player->adjustBank(bet);
         balance = player->getBankValue();
         ties++;
+        mode =5;
     }
     else
     {
@@ -384,6 +416,7 @@ void Executive::winningCondition(Blackjack* dealer, Blackjack* player)
         player->adjustBank(bet);
         balance = player->getBankValue();
         losses++;
+        mode =6;
     }
     
     if(balance <= 0)
